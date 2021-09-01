@@ -77,11 +77,6 @@ def parse_it(url):
 
 
 class ParseLink(Resource):
-    def get(self):
-        data = pd.read_csv('cleanest_max.csv')  # read CSV
-        data = {'allowed hosts': list(data['host'])}
-        return {'data': data}, 200
-
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('url', required=True)
@@ -91,7 +86,7 @@ class ParseLink(Resource):
             try:
                 html_page = requests.get(url_to_parse, headers=Headers(headers=True).generate(), timeout=10, verify=False).text
                 soup = BeautifulSoup(html_page, 'lxml')
-                price = universal_parser(soup, 'meta,span,p,a,i,b,brs,div,strong,h2,h1'.split(','))
+                price = universal_parser(soup, 'meta,span,p,div,i,b,brs,a,strong,h2,h1'.split(','))
                 return {'price': price}, 200
             except:
                 return {'error': 'Bad Getaway'}, 500
