@@ -31,7 +31,6 @@ def universal_parser(soup, tagsz):
                                 z: j[z],
                                 'values_': float(j['content'])
                             })
-                    print(attribute_keyval)
                     for key in attribute_keyval:
                         if key['itemprop'].lower() == 'price':
                             return key['values_']
@@ -53,7 +52,6 @@ def universal_parser(soup, tagsz):
                                 z: j[z],
                                 'values_': float(''.join([m for m in j.text if m in charset]).replace(',', '.'))
                             })
-                    print(attribute_keyval)
                     for key in attribute_keyval:
                         for jkval in key.values():
                             if 'price' in jkval.lower():
